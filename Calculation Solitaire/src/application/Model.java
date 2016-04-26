@@ -50,7 +50,7 @@ public class Model
 	
 	        
 	     // load the image
-	         Image image = new Image("/10.png");
+	         Image image = new Image("/img/10_of_spades.png");
 	 
 	         // simple displays ImageView the image as is
 	         ImageView iv1 = new ImageView();

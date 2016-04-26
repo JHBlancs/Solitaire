@@ -33,7 +33,7 @@ public class MainController
 		//deckOption.loadDeck();
 		//randCard = new ImageView();
 		
-		Image image = new Image("/10.png"); 
+		Image image = new Image("/img/10_of_spades.png"); 
         randCard.setImage(image);
         
 
