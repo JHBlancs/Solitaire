@@ -37,6 +37,8 @@ public class CardGame extends Application
 		primaryStage.setTitle("Calculation Solitaire");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		//Deck test = new Deck();
+		//System.out.println(" " + test.getCount());
 	}
 	
 }
