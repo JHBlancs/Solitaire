@@ -34,6 +34,13 @@ public class FoundationPile
 	{
 		return multRule;
 	}
+	/*
+	 * MUTATOR: Sets topCard, used at the start of the game
+	 */
+	public void setStartCard(Card c)
+	{
+		topCard = c;
+	}
 	
 	/*
 	 * placeTopCard: If the multRule is satisfied, places c onto topCard, deleting the last topCard.
@@ -41,6 +48,19 @@ public class FoundationPile
 	public void placeTopCard(Card c)
 	{
 		if(topCard.getRank() + multRule == c.getRank())
+		{
 			topCard = c;
+			
+		}
+	}
+	
+	/*
+	 * isDone: checks whether this pile is complete (if the topCard has a rank 13, then it is done)
+	 */
+	public boolean isDone()
+	{
+	if(topCard.getRank() == 13)
+		return true;
+	else return false;
 	}
 }

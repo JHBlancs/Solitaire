@@ -37,14 +37,34 @@ public class Deck
 		return counter;
 	}
 	
+	public Card getTop()
+	{
+		return d.get(counter-1);
+	}
+	
 	/*
-	 * removeTop(): returns the top Card. Does not actually delete the top Card, just moves past it. The counter instance variable assures this
-	 * Card will not be duplicated in meaningful play. 
+	 * removeTop(): Returns the top card and deletes it from this Deck instance.
 	 */
 	public Card removeTop()
 	{
-		Card temp = d.get(counter);
-		d.remove(counter);
+		Card temp = d.get(counter-1);
+		d.remove(counter-1);
+		counter--;
+		return temp;
+	}
+	/*
+	 * remove: used for starting the game; removes a Card of specified rank from the Deck.
+	 */
+	public Card remove(int r)
+	{
+		Card temp = null;
+		for(int i = 0; i < counter; i++)
+		{
+			if(d.get(i).getRank() == r)
+			{
+				temp = d.get(i);
+			}
+		}
 		return temp;
 	}
 	
