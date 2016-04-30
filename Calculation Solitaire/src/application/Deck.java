@@ -55,7 +55,7 @@ public class Deck
 	/*
 	 * remove: used for starting the game; removes a Card of specified rank from the Deck.
 	 */
-	public Card removeOneOfRank(int r)
+	public Card remove(int r)
 	{
 		Card temp = null;
 		for(int i = 0; i < counter; i++)
