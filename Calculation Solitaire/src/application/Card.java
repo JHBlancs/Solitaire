@@ -22,6 +22,7 @@ public class Card
 		suit = s;
 		rank = r;
 		String imageName = "/img/" + rank + "_of_" + suit + ".png";
+		System.out.println(imageName);
 		im = new Image(imageName);
 	}
 	/*

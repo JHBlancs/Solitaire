@@ -1,26 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id=" " prefHeight="700.0" prefWidth="1200.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<AnchorPane id=" " prefHeight="800.0" prefWidth="1200.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <styleClass>
       <String fx:value="background" />
       <String fx:value="background" />
    </styleClass>
    <children>
-      <ImageView fitHeight="177.0" fitWidth="133.0" layoutX="30.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-            <Image url="@../img/checkeredcarddeck.png" />
-      </image>
-      </ImageView>
-      <Button fx:id="cardChoose" layoutX="26.0" layoutY="440.0" mnemonicParsing="false" onAction="#deckCardDisplay" prefHeight="195.0" prefWidth="140.0" styleClass="deckbackground" stylesheets="@application.css" />
-      <ImageView fx:id="randCard" fitHeight="224.0" fitWidth="148.0" layoutX="37.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="foundationPileButton1" layoutX="221.0" layoutY="20.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="FoundationPile1" />
+      <Button fx:id="foundationPileButton2" layoutX="423.0" layoutY="20.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="FoundationPile2" />
+      <Button fx:id="foundationPileButton3" layoutX="632.0" layoutY="20.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="FoundationPile3" />
+      <Button fx:id="foundationPileButton4" layoutX="840.0" layoutY="20.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="FoundationPile4" />
+      <Button fx:id="wastePileButton1" layoutX="221.0" layoutY="271.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="WastePile1" />
+      <Button fx:id="wastePileButton2" layoutX="423.0" layoutY="271.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="WastePile2" />
+      <Button fx:id="wastePileButton3" layoutX="632.0" layoutY="271.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="WastePile3" />
+      <Button fx:id="wastePileButton4" layoutX="840.0" layoutY="271.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="WastePile4" />
+      <Button fx:id="topCardButton" layoutX="632.0" layoutY="533.0" mnemonicParsing="false" prefHeight="224.0" prefWidth="148.0" text="TopCard" />
+      <ImageView fx:id="foundationPileImage1" fitHeight="224.0" fitWidth="148.0" layoutX="221.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/10_of_spades.png" />
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="foundationPileImage2" fitHeight="224.0" fitWidth="148.0" layoutX="423.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="foundationPileImage3" fitHeight="224.0" fitWidth="148.0" layoutX="632.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="foundationPileImage4" fitHeight="224.0" fitWidth="148.0" layoutX="840.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="wastePileImage1" fitHeight="224.0" fitWidth="148.0" layoutX="221.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="wastePileImage2" fitHeight="224.0" fitWidth="148.0" layoutX="423.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="wastePileImage3" fitHeight="224.0" fitWidth="148.0" layoutX="632.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="wastePileImage4" fitHeight="224.0" fitWidth="148.0" layoutX="840.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="deckImage" fitHeight="224.0" fitWidth="148.0" layoutX="423.0" layoutY="533.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
+         </image></ImageView>
+      <ImageView fx:id="topCardImage" fitHeight="224.0" fitWidth="148.0" layoutX="632.0" layoutY="533.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/checkeredcarddeck.png" />
          </image></ImageView>
    	
    </children>
