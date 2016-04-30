@@ -1,6 +1,6 @@
 package application;
 
-public class FoundationPile 
+public class FoundationPile extends Pile
 {
 	/*
 	 * Class: FoundationPile
@@ -19,23 +19,23 @@ public class FoundationPile
 	 */
 	public FoundationPile(int mr)
 	{
+		super();
 		multRule = mr;
 	}
 	
 	/*
-	 * ACCESSORS: Access the multRule and topCard instance variables.
-	 */
-	public Card getTopCard()
-	{
-		return topCard;
-	}
-	
+	 * ACCESSORS: Access the multRule instance variable. Gets getTopCard() from super.
+	 */	
 	public int getMultRule()
 	{
 		return multRule;
 	}
+	public Card getTopCard()
+	{
+		return topCard;
+	}
 	/*
-	 * MUTATOR: Sets topCard, used at the start of the game
+	 * MUTATOR: Sets topCard, used only at the start of the game
 	 */
 	public void setStartCard(Card c)
 	{
@@ -45,12 +45,11 @@ public class FoundationPile
 	/*
 	 * placeTopCard: If the multRule is satisfied, places c onto topCard, deleting the last topCard.
 	 */
-	public void placeTopCard(Card c)
+	public void placeCard(Card c)
 	{
 		if(topCard.getRank() + multRule == c.getRank())
 		{
 			topCard = c;
-			
 		}
 	}
 	
