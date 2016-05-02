@@ -9,15 +9,30 @@ public class Main
 	static ArrayList<FoundationPile> fp;
 	static ArrayList<Pile> wp;
 	static Scanner in;
+	static String[][] emptyCard =  {{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+									{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+									{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+									{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+									{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+									{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+									{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}};
+	static String[][] deckCard =   {{"d", "e", "c", "k", "d", "e", "c", "k", "d", "e"},
+									{"c", "k", "d", "e", "c", "k", "d", "e", "c", "k"},
+									{"d", "e", "c", "k", "d", "e", "c", "k", "d", "e"},
+									{"c", "k", "d", "e", "c", "k", "d", "e", "c", "k"},
+									{"d", "e", "c", "k", "d", "e", "c", "k", "d", "e"},
+									{"c", "k", "d", "e", "c", "k", "d", "e", "c", "k"},
+									{"d", "e", "c", "k", "d", "e", "c", "k", "d", "e"}};
+			
 	public static void main(String[] args)
 	{
 		System.out.print("Welcome to Calculation Solitaire!");
 		helpSplashStart();
-		d = new Deck();
+		d = new Deck(); 						//Initializes Piles and Deck, and populates them. 
 		fp = new ArrayList<FoundationPile>();
 		wp = new ArrayList<Pile>();
 		in = new Scanner(System.in);
-		fp.add(new FoundationPile(1));
+		fp.add(new FoundationPile(1)); 
 		fp.add(new FoundationPile(2));
 		fp.add(new FoundationPile(3));
 		fp.add(new FoundationPile(4));
@@ -25,15 +40,15 @@ public class Main
 		wp.add(new Pile());
 		wp.add(new Pile());
 		wp.add(new Pile());
-		deal();
-		while(gameEndCheck())
+		deal(); 
+		while(gameEndCheck()) //The iteration of a game
 		{
 			displayGame();
 			System.out.println("Input: ");
 			String s = in.next();
 			switch(s)
 			{
-				case "f1":
+				case "f1":					//Foundation choices
 				{
 					if(fp.get(0).cardRuleCheck(d.getTop().getRank()))
 						fp.get(0).placeCard(d.removeTop());
@@ -57,7 +72,7 @@ public class Main
 						fp.get(3).placeCard(d.removeTop());
 					break;
 				}
-				case "w1":
+				case "w1":			//Waste choices
 				{
 					wp.get(0).placeCard(d.removeTop());
 					break;
@@ -77,34 +92,40 @@ public class Main
 					wp.get(3).placeCard(d.removeTop());
 					break;
 				}
-				case "h":
+				case "h":			//Help choice
 				{
 					helpSplash();
 					break;
 				}
-				case "w":
+				case "w":			//move from waste pile choice
 				{
 					wastePilePlace();
 					break;
 				}
-				default:
+				default:			//error message
 				{
 					System.out.print("Sorry, this move is illegal!");
 				}
 			}
-            System.out.print("=======================================================================");
-		}		
+            System.out.print("=================================================" + "\n");
+		}	
+		checkEndGame();
 	}
-
+	/*
+	 * deal(): Sets up the game by dealing the FoundationPiles their starting Cards
+	 */
 	public static void deal()
 	{
 		for(int i = 1; i < 5; i++)
+			
 		{
 			Card temp = d.removeOneOfRank(i); 
 			fp.get(i-1).setStartCard(temp);
 		}
 	}
-	
+	/*
+	 * helpSplashStart(): help screen that immediately cuts to the game board.
+	 */
 	public static void helpSplashStart()
 	{
 		System.out.println("\n" +
@@ -120,6 +141,9 @@ public class Main
 				"Type \'h\' for help!"
 				);
 	}
+	/*
+	 * helpSplash(): help screen that asks for input before cutting back to the game board.
+	 */
 	public static void helpSplash()
 	{
 		System.out.println("\n" +
@@ -132,64 +156,131 @@ public class Main
 				"Type \'f1-f4\' to place the Card from the Deck on to a Foundation Pile " + "\n" +
 				"Type \'w1-w4\' to place the Card from the Deck on to a Waste Pile " + "\n" +
 				"Type \'w\' to place a Card from one of the Waste Piles!" + "\n" +
-				"Type \'h\' for help!"
+				"Type \'h\' for help!" + "\n" +
+				"Give any input to go back to the game..."
 				);
+		in.next();
+		
 	}
 	/*
 	 * displayGame(): Refreshes the screen for the player.
 	 */
 	public static void displayGame()
 	{
-		System.out.println("Game Board: \n");
-		System.out.println("F.P. 1: " + fp.get(0).getTopCard().getRank() + " of " + fp.get(0).getTopCard().getSuit() + " | " + 
-							"F.P. 2: " + fp.get(1).getTopCard().getRank() + " of " + fp.get(1).getTopCard().getSuit() + " | " + 
-							"F.P. 3: " + fp.get(2).getTopCard().getRank() + " of " + fp.get(2).getTopCard().getSuit() + " | " + 
-							"F.P. 4: " + fp.get(3).getTopCard().getRank() + " of " + fp.get(3).getTopCard().getSuit());
-		if(wp.get(0).getPileSize() == 0)
+		String[][][] Cards = new String[4][][]; 		//temp holding place for Card image arrays.
+		Cards[0] = fp.get(0).getTopCard().getImage(); 
+		Cards[1] = fp.get(1).getTopCard().getImage();
+		Cards[2] = fp.get(2).getTopCard().getImage();
+		Cards[3] = fp.get(3).getTopCard().getImage();
+		for(int i = 0; i < 7; i++)						//prints FoundationPile Card images
 		{
-			System.out.print("W.P. 1: Empty");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[0][i][j]);
+			}
+			System.out.print(" | ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[1][i][j]);
+			}
+			System.out.print(" | ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[2][i][j]);
+			}
+			System.out.print(" | ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[3][i][j]);
+			}
+			System.out.print("\n");
+		}
+		System.out.println("=================================================" + "\n");
+		if(wp.get(0).getPileSize() != 0)				//prints WastePile card images. If the WastePile is empty, takes the emptyCard array.
+		{
+		Cards[0] = wp.get(0).getTopCard().getImage();
 		}
 		else
 		{
-			System.out.print("W.P. 1: " + wp.get(0).getTopCard().getRank() + " of " + wp.get(0).getTopCard().getSuit() + " | ");
+			Cards[0] = emptyCard;
 		}
-		System.out.print(" | ");
-		if(wp.get(1).getPileSize() == 0)
+		if(wp.get(1).getPileSize() != 0)
 		{
-			System.out.print("W.P. 2: Empty");
-		}
-		else
-		{
-			System.out.print("W.P. 2: " + wp.get(1).getTopCard().getRank() + " of " + wp.get(1).getTopCard().getSuit() + " | ");
-		}
-		System.out.print(" | ");
-		if(wp.get(2).getPileSize() == 0)
-		{
-			System.out.print("W.P. 3: Empty");
+			Cards[1] = wp.get(1).getTopCard().getImage();
 		}
 		else
 		{
-			System.out.print("W.P. 3: " + wp.get(2).getTopCard().getRank() + " of " + wp.get(2).getTopCard().getSuit() + " | ");
+			Cards[1] = emptyCard;
 		}
-		System.out.print(" | ");
-		if(wp.get(3).getPileSize() == 0)
+		if(wp.get(2).getPileSize() != 0)
 		{
-			System.out.print("W.P. 4: Empty");
-		}
-		else
-		{
-			System.out.print("W.P. 4: " + wp.get(3).getTopCard().getRank() + " of " + wp.get(3).getTopCard().getSuit() + " | ");
-		}
-		System.out.print("\n");
-		if(d.getCount() == 0)
-		{
-			System.out.print("Deck: Empty");
+			Cards[2] = wp.get(2).getTopCard().getImage();
 		}
 		else
 		{
-			System.out.print("Deck: " + d.getTop().getRank() + " of " +d.getTop().getSuit());
-		}		
-		System.out.print("\n");
+			Cards[2] = emptyCard;
+		}
+		if(wp.get(3).getPileSize() != 0)
+		{
+			Cards[3] = wp.get(3).getTopCard().getImage();
+		}
+		else
+		{
+			Cards[3] = emptyCard;
+		}
+		for(int i = 0; i < 7; i++)
+		{
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[0][i][j]);
+			}
+			System.out.print(" | ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[1][i][j]);
+			}
+			System.out.print(" | ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[2][i][j]);
+			}
+			System.out.print(" | ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[3][i][j]);
+			}
+			System.out.print("\n");
+		}
+		if(d.getCount() >= 1)				//If the Deck is populated, deck card image and topCard image will be shown.
+		{
+		Cards[0] = deckCard;
+		Cards[1] = d.getTop().getImage();
+		}
+		else if(d.getCount() == 1)			//If the Deck has one Card left, the emptyCard and topCard will be shown.
+		{
+			Cards[0] = emptyCard;
+			Cards[1] = d.getTop().getImage();
+		}
+		else								//if the Deck is empty, two emptyCards will be shown.
+		{
+			Cards[0] = emptyCard;
+			Cards[1] = emptyCard;
+		}
+		for(int i = 0; i < 7; i++)
+		{
+			System.out.print("|            ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[0][i][j]);
+			}
+			System.out.print(" | ");
+			for(int j = 0; j < 10; j++)
+			{
+				System.out.print(Cards[1][i][j]);
+			}
+			System.out.print("\n");
+		}
+		
 	}
 	/*
 	 * wastePilePlace: Steps the user through selecting a Waste Pile to place the Card onto, then does so.
@@ -197,7 +288,6 @@ public class Main
 	public static void wastePilePlace()
 	{
 		String s = "";
-		Pile temp = null;
 		System.out.println("Which Waste Pile do you want to select? (w1-w4): ");
 		s = in.next();
 		switch(s)
@@ -205,7 +295,7 @@ public class Main
 			case "w1": 
 			{
 				if(wp.get(0).getPileSize() != 0)
-					temp = wp.get(0);
+					wastePileOneMove();
 				else 
 					System.out.println("Sorry, this Waste Pile has no Cards to place!");
 				break;
@@ -213,7 +303,7 @@ public class Main
 			case "w2": 
 			{
 				if(wp.get(1).getPileSize() != 0)
-					temp = wp.get(1);
+					wastePileTwoMove();
 				else 
 					System.out.println("Sorry, this Waste Pile has no Cards to place!");
 				break;
@@ -221,7 +311,7 @@ public class Main
 			case "w3": 
 			{
 				if(wp.get(2).getPileSize() != 0)
-					temp = wp.get(2);
+					wastePileThreeMove();
 				else 
 					System.out.println("Sorry, this Waste Pile has no Cards to place!");
 				break;
@@ -229,40 +319,127 @@ public class Main
 			case "w4": 
 			{
 				if(wp.get(3).getPileSize() != 0)
-					temp = wp.get(3);
+					wastePileFourMove();
 				else 
 					System.out.println("Sorry, this Waste Pile has no Cards to place!");
 				break;
 			}
 		}
+	}
+	public static void wastePileOneMove()
+	{
 		System.out.println("Which Foundation Pile do you want to select? (f1-f4): ");
-		s = in.next();
+		String s = in.next();
 		switch(s)
 		{
 			case "f1": 
 			{
-				fp.get(0).placeCard(temp.removeCard());
+				fp.get(0).placeCard(wp.get(0).removeCard());
 				break;
 			}
-			case "w2": 
+			case "f2": 
 			{
-				fp.get(1).placeCard(temp.removeCard());
+				fp.get(1).placeCard(wp.get(0).removeCard());
 				break;
 			}
-			case "w3": 
+			case "f3": 
 			{
-				fp.get(2).placeCard(temp.removeCard());
+				fp.get(2).placeCard(wp.get(0).removeCard());
 				break;
 			}
-			case "w4": 
+			case "f4": 
 			{
-				fp.get(3).placeCard(temp.removeCard());
+				fp.get(3).placeCard(wp.get(0).removeCard());
+				break;
+			}
+		}
+	}
+	public static void wastePileTwoMove()
+	{
+		System.out.println("Which Foundation Pile do you want to select? (f1-f4): ");
+		String s = in.next();
+		switch(s)
+		{
+			case "f1": 
+			{
+				fp.get(0).placeCard(wp.get(1).removeCard());
+				break;
+			}
+			case "f2": 
+			{
+				fp.get(1).placeCard(wp.get(1).removeCard());
+				break;
+			}
+			case "f3": 
+			{
+				fp.get(2).placeCard(wp.get(1).removeCard());
+				break;
+			}
+			case "f4": 
+			{
+				fp.get(3).placeCard(wp.get(1).removeCard());
+				break;
+			}
+		}
+	}
+	public static void wastePileThreeMove()
+	{
+		System.out.println("Which Foundation Pile do you want to select? (f1-f4): ");
+		String s = in.next();
+		switch(s)
+		{
+			case "f1": 
+			{
+				fp.get(0).placeCard(wp.get(2).removeCard());
+				break;
+			}
+			case "f2": 
+			{
+				fp.get(1).placeCard(wp.get(2).removeCard());
+				break;
+			}
+			case "f3": 
+			{
+				fp.get(2).placeCard(wp.get(2).removeCard());
+				break;
+			}
+			case "f4": 
+			{
+				fp.get(3).placeCard(wp.get(2).removeCard());
+				break;
+			}
+		}
+	}
+	public static void wastePileFourMove()
+	{
+		System.out.println("Which Foundation Pile do you want to select? (f1-f4): ");
+		String s = in.next();
+		switch(s)
+		{
+			case "f1": 
+			{
+				fp.get(0).placeCard(wp.get(3).removeCard());
+				break;
+			}
+			case "f2": 
+			{
+				fp.get(1).placeCard(wp.get(3).removeCard());
+				break;
+			}
+			case "f3": 
+			{
+				fp.get(2).placeCard(wp.get(3).removeCard());
+				break;
+			}
+			case "f4": 
+			{
+				fp.get(3).placeCard(wp.get(3).removeCard());
 				break;
 			}
 		}
 	}
 	/*
-	 * gameEndCheck(): true if the game is still going on, false if there are no more moves.
+	 * gameEndCheck(): true if the game is still going on, false if there are no more valid moves.
 	 */
 	public static boolean gameEndCheck()
 	{
@@ -285,7 +462,23 @@ public class Main
 		{
 			ans = true;
 		}
-		
 		return ans;
+	}
+	
+	/*
+	 * checkEndGame(): Checks the status of the endgame. Triggered when gameEndCheck's cycle says there are no more valid moves.
+	 * If all four Foundation Piles have a topCard value of 13, a victory scenario has occurred. In all other cases, a loss scenario has occurred. 
+	 * Either way, the user will be notified through a message.
+	 */
+	public static void checkEndGame()
+	{
+		if(fp.get(0).isDone() && fp.get(1).isDone() && fp.get(2).isDone() && fp.get(3).isDone())
+		{
+			System.out.println("Congratulations, you've won!");
+		}
+		else 
+		{
+			System.out.println("Sorry, you've lost!");
+		}
 	}
 }

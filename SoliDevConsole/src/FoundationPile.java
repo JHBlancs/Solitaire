@@ -9,7 +9,7 @@ public class FoundationPile extends Pile
 	 * Summary: There are four FoundationPiles in the game, each with a unique multRule and topCard. 
 	 * The topCard holds the current, well, top Card. This Card is ALWAYS a multiple of the multRule.
 	 * The multRule determines what Card can be placed on top of the current topCard, by only 
-	 * allowing cards whose rank is equal to (topCard.getRank() + multRule)
+	 * allowing cards whose rank is equal to (topCard.getRank() + multRule) % 13
 	 */
 	Card topCard;
 	int multRule;
@@ -56,7 +56,9 @@ public class FoundationPile extends Pile
 			System.out.println("Sorry, this move is illegal!");
 		}
 	}
-	
+	/*
+	 * cardRuleCheck(): returns true if the proposed value can be placed on top of the current topCard.
+	 */
 	public boolean cardRuleCheck(int nextCardValue)
 	{
 		return ((multRule + topCard.getRank()) % 13 == nextCardValue);
